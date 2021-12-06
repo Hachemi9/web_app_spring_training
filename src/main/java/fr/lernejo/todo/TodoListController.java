@@ -5,19 +5,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 @RestController
 public class TodoListController {
-    ArrayList<Todo> t = new ArrayList<Todo>();
+    TodoRepository t;
+
+    public TodoListController(TodoRepository t) {
+        this.t = t;
+    }
 
     @PostMapping(value="/api/todo")
 
-    public void POST(@RequestBody Todo a){
-           t.add(a);
+    public TodoEntity post(@RequestBody TodoEntity a){
+          return t.save(a);
     }
-
+    
     @GetMapping(value="/api/todo")
-    public ArrayList<Todo> GET(){
-        return t;
+    public Iterable<TodoEntity> get(){
+        return t.findAll();
     }
 }

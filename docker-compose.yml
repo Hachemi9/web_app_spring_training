@@ -19,4 +19,10 @@ services:
             - "traefik.http.routers.todolist.rule=PathPrefix(`/app`)"
             - "traefik.http.middlewares.todolist.stripPrefix.prefixes=/app"
             - "traefik.http.routers.todolist.middlewares=todolist@docker"
-
+    postgres:
+        image: postgres:14.0-alpine
+        container_name: postgres
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: example
